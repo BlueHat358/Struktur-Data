@@ -5,8 +5,8 @@ using namespace std;
 
 struct Data_Rental{
     char name[40], type[9];
-    string date, hours;
-    int price, denda, num;
+    string date;
+    int price, num, hour, day, month, year;
 };
 
 struct Data_Rental rental[MAX], tmpRental[MAX];

@@ -1,8 +1,8 @@
-void sortStart(){
-    for(int i = 0; i < queue.end; i++){
-        tmpRental[i] = rental[i];
-    }
-}
+// void sortStart(){
+//     for(int i = 0; i < queue.end; i++){
+//         tmpRental[i] = rental[i];
+//     }
+// }
 
 void swap(Data_Rental *a, Data_Rental *b){
     Data_Rental tmp;
@@ -30,26 +30,36 @@ void sortQueue(){
     }
 }
 
-void sortName(){
-    sortStart();
+void sortDefault(){
+    string hour, date, month, year, hour1, date1, month1, year1;
     for(int i = 0; i < queue.end-1; i++){
         for(int j = 0; j < queue.end - i-1; j++){
-            if(tmpRental[j].name > tmpRental[j+1].name){
-                swap(&tmpRental[j], &tmpRental[j+1]);
+            hour = rental[j].hour;
+            date = rental[j].day;
+            month = rental[j].month;
+            year = rental[j].year;
+            hour1 = rental[j+1].hour;
+            date1 = rental[j+1].day;
+            month1 = rental[j+1].month;
+            year1 = rental[j+1].year;
+            if(rental[j].hour > rental[j+1].hour){
+                swap(&rental[j], &rental[j+1]);
             }
         }
     }
 }
 
+// hour > hour1 || date > date1 || month > month1
+
 void savedState(int saved){
     if(saved == 1){
-        sortName();
+        sortDefault();
     }
     else if(saved == 2){
-        sortName();
+        sortDefault();
     }
     else if(saved == 3){
-        sortName();
+        sortDefault();
     }
     else{
         sortQueue();
