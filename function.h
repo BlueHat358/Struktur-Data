@@ -76,8 +76,6 @@ void bundle(int num, char name[40], char type[9], int hours){
 }
 
 void inQueue(){
-    showData();
-
     int number, error = 0;
     char name[40], type[9];
     string date;
@@ -93,22 +91,40 @@ void inQueue(){
         cout << i;
         int num, number;
         xy(4,queue.end + 3);
-        cin >> rental[i].num;
-        cin.ignore();
-        xy(11,queue.end + 3);
-        cin.getline(rental[i].name,40);
-        xy(54,queue.end + 3);
-        cin.getline(rental[i].type,9);
-        if(strcmp(rental[i].type, "PS")==0 || strcmp(rental[i].type, "ps")==0)
-            t = 1;
-        else if(strcmp(rental[i].type, "FULL SET")==0 || strcmp(rental[i].type, "full set")==0)
-            t = 2;
-        
-        xy(66,queue.end + 3);
         cin >> num;
-        rental[i].date = Date(num);
-        rental[i].price = price(num,t);
-
+        for(int a = 0; a < queue.end; a++){
+            if(num == rental[a].num){
+                t = -1;
+            }
+        }
+        if(t != -1){
+            rental[i].num = num;
+            cin.ignore();
+            xy(11,queue.end + 3);
+            cin.getline(rental[i].name,40);
+            xy(54,queue.end + 3);
+            cin.getline(rental[i].type,9);
+            if(strcmp(rental[i].type, "PS")==0 || strcmp(rental[i].type, "ps")==0)
+                t = 1;
+            else if(strcmp(rental[i].type, "FULL SET")==0 || strcmp(rental[i].type, "full set")==0)
+                t = 2;
+            else{
+                t = 0;
+                queue.end--;
+            }
+            
+            if(t != 0){
+                xy(66,queue.end + 3);
+                cin >> num;
+                rental[i].date = Date(num);
+                rental[i].price = price(num,t);
+            }
+        }
+        else{
+            queue.end--;
+            t = 0;
+        }
+        
         queue.end++;
     }
     else
@@ -129,7 +145,6 @@ void deQueue(){
 
 void showData(){
     Table();
-    title();
     if(isEmpty()){
         cout << "Queue is Empty";
     }
