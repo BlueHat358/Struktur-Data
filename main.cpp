@@ -6,7 +6,9 @@ int main(){
     title();
     inQueue();
     showData();
-    
+    xy(0, height + 3);
+        cout << queue.end;
+
     xy(0, height + 6);
 
     // clear();

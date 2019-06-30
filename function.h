@@ -79,39 +79,33 @@ void inQueue(){
     char name[40], type[9];
     string date;
 
+    if(isEmpty()){
+        queue.end++;
+    }
+
+    int i = queue.end;
+
     if(!isFull()){
+        xy(0, height + 3);
+        cout << i;
         int num, number;
         xy(4,queue.end + 3);
-        try{
-            cin >> number;
-        }catch(exception e){
-            error = 1;
-        }
+        cin >> rental[i].num;
         xy(11,queue.end + 3);
-        cin >> name;
+        cin >> rental[i].name;
         xy(54,queue.end + 3);
-        cin >> type;
-        if(strcmp(rental[dex].type, "PS")==0 || strcmp(rental[dex].type, "ps")==0)
+        cin >> rental[i].type;
+        if(strcmp(rental[i].type, "PS")==0 || strcmp(rental[i].type, "ps")==0)
             t = 1;
-        else if(strcmp(rental[dex].type, "FULL SET")==0 || strcmp(rental[dex].type, "full set")==0)
+        else if(strcmp(rental[i].type, "FULL SET")==0 || strcmp(rental[i].type, "full set")==0)
             t = 2;
-        else
-            error = 1;
         
         xy(66,queue.end + 3);
-        try{
-            cin >> num;
-        }catch(exception e){
-            error = 1;
-        }
+        cin >> num;
+        rental[i].date = Date(num);
+        rental[i].price = price(num,t);
 
-        if(error == 1){
-            xy(5, height + 7);
-            cout << "Data Salah";
-        }
-        else{
-            bundle(number, name, type, num);
-        }
+        queue.end++;
     }
     else
         cout << "Queue is Full";
