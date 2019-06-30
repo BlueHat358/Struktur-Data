@@ -6,6 +6,8 @@
 #include "sort.h"
 #include "table.h"
 
+void showData();
+
 int state = 0;
 
 bool isFull(){
@@ -74,6 +76,7 @@ void bundle(int num, char name[40], char type[9], int hours){
 }
 
 void inQueue(){
+    showData();
 
     int number, error = 0;
     char name[40], type[9];
@@ -91,10 +94,11 @@ void inQueue(){
         int num, number;
         xy(4,queue.end + 3);
         cin >> rental[i].num;
+        cin.ignore();
         xy(11,queue.end + 3);
-        cin >> rental[i].name;
+        cin.getline(rental[i].name,40);
         xy(54,queue.end + 3);
-        cin >> rental[i].type;
+        cin.getline(rental[i].type,9);
         if(strcmp(rental[i].type, "PS")==0 || strcmp(rental[i].type, "ps")==0)
             t = 1;
         else if(strcmp(rental[i].type, "FULL SET")==0 || strcmp(rental[i].type, "full set")==0)
@@ -125,6 +129,7 @@ void deQueue(){
 
 void showData(){
     Table();
+    title();
     if(isEmpty()){
         cout << "Queue is Empty";
     }
@@ -132,15 +137,15 @@ void showData(){
         savedState(state);
         Table();
         for(int i = 0; i < queue.end; i++){
-            xy(4,queue.end + 3);
+            xy(4,i + 3);
             cout << rental[i].num;
-            xy(11,queue.end + 3);
+            xy(11,i+ 3);
             cout << rental[i].name;
-            xy(54,queue.end + 3);
+            xy(54,i + 3);
             cout << rental[i].type;
-            xy(66,queue.end + 3);
+            xy(66,i+ 3);
             cout << rental[i].date;
-            xy(90,queue.end + 3);
+            xy(90,i + 3);
             cout << "Rp. " << rental[i].price;
         }
     }

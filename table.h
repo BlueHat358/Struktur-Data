@@ -66,6 +66,6 @@ void title(){
         cout << "Type";
     xy(73,1);
         cout << "Date";
-    xy(95,1);
+    xy(97,1);
         cout << "Price";
 }

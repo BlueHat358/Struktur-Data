@@ -2,12 +2,12 @@
 
 int main(){
 
-    Table();
-    title();
-    inQueue();
-    showData();
-    xy(0, height + 3);
+    while(true){
+        showData();
+        inQueue();
+        xy(0, height + 3);
         cout << queue.end;
+    }
 
     xy(0, height + 6);
 
