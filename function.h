@@ -2,7 +2,7 @@
 #include <string>
 #include <locale>
 
-#include "model.h"
+#include "linkedlist.h"
 #include "sort.h"
 #include "table.h"
 
@@ -111,6 +111,7 @@ void inQueue(){
                 cin >> num;
                 Date(num);
                 rental[i].date = buffer;
+                Insert(price(num,t));
             }
         }
         else{
@@ -137,6 +138,7 @@ void deQueue(){
 }
 
 void showData(){
+    system("clear");
     Table();
     sortDefault();
     if(isEmpty()){
@@ -145,17 +147,16 @@ void showData(){
     else{
         savedState(state);
         Table();
-        for(int i = 0; i < queue.end; i++){
-            xy(4,i + 3);
-            cout << rental[i].num;
-            xy(11,i+ 3);
-            cout << rental[i].name;
-            xy(54,i + 3);
-            cout << rental[i].type;
-            xy(66,i+ 3);
-            cout << rental[i].date;
-            xy(91,i + 3);
-            cout << "Rp. " << rental[i].price;
+        for(pos = 0; pos < queue.end; pos++){
+            xy(4,pos + 3);
+            cout << rental[pos].num;
+            xy(11,pos+ 3);
+            cout << rental[pos].name;
+            xy(54,pos + 3);
+            cout << rental[pos].type;
+            xy(66,pos+ 3);
+            cout << rental[pos].date;
+            Display();
         }
     }
     title();
