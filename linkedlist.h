@@ -1,13 +1,12 @@
 #include <iostream>
 
-using namespace std;
 #include "model.h"
 
 int n = 1, a, c = 1;
 
 struct node {
+   string name, title, date;
    int price;
-   int index;
    struct node *next;
 };
 struct node* front = NULL;
@@ -15,30 +14,25 @@ struct node* rear = NULL;
 struct node* temp;
 struct node* temp1;
 
-struct duplicate {
-   int price;
-   int index;
-   struct duplicate *next;
-};
-struct duplicate* front_ = NULL;
-struct duplicate* rear_ = NULL;
-struct duplicate* temp_;
-
-void Insert(int val) {
+void Insert(string name, string title, string date, int price) {
    if (rear == NULL) {
       rear = (struct node *)malloc(sizeof(struct node));
       rear->next = NULL;
-      rear->price = val;
-      rear->index = n;
+      rear->name = name;
+      rear->title = title;
+      rear->date = date;
+      rear->price = price;
+      temp->name = name;
       front = rear;
    } else {
-       n++;
       temp=(struct node *)malloc(sizeof(struct node));
       rear->next = temp;
-      temp->price = val;
+      temp->name = name;
+      temp->title = title;
+      temp->price = price;
+      temp->date = date;
       temp->next = NULL;
       rear = temp;
-      rear->index = n;
    }
 }
 
@@ -68,7 +62,7 @@ void Display() {
    }
    for(int i = 0; i < n; i++){
             xy(91,i+3);
-            cout << temp->price;
+            cout << temp->price << "|" << temp->key << temp->index;
             temp = temp->next;
        }
 }
@@ -80,7 +74,7 @@ void findIndex(int n) {
    while(temp != NULL){
         c++;
         temp = temp->next;
-        b = temp->index;
+        b = temp->key;
         if(b == n){
             ada = true;
             cout << ada;

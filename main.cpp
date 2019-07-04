@@ -1,15 +1,20 @@
- #include "search.h"
+//  #include "search.h"
+ #include "function.h"
  //#include "linkedlist.h"
 
 int main(){
 
-    while(true){
-        showData();
-        inQueue();
-        xy(0, height + 3);
-        cout << queue.end;
-        if(end1){
-            break;
+    while(pil_tmp != 3){
+        table_main();
+        if(pil_tmp == 1){
+            while(true){
+                showData();
+                // xy(0, height + 3);
+                // cout << queue.end;
+                if(end1){
+                    break;
+                }
+            }
         }
     }
 

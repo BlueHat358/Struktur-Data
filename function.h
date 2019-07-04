@@ -5,6 +5,7 @@
 #include "linkedlist.h"
 #include "sort.h"
 #include "table.h"
+#include "search.h"
 
 void showData();
 
@@ -83,8 +84,6 @@ void inQueue(){
         int num, number;
         xy(4,queue.end + 3);
         cin >> num;
-        if(num == 99)
-            end1 = true;
         for(int a = 0; a < queue.end; a++){
             if(num == rental[a].num){
                 t = -1;
@@ -107,11 +106,12 @@ void inQueue(){
             }
             
             if(t != 0){
+                s++;
                 xy(66,queue.end + 3);
                 cin >> num;
                 Date(num);
                 rental[i].date = buffer;
-                Insert(price(num,t));
+                rental[i].price = price(num, t);
             }
         }
         else{
@@ -120,6 +120,10 @@ void inQueue(){
         }
         
         queue.end++;
+
+        if(s > 20){
+            s = 0;
+        }
     }
     else
         cout << "Queue is Full";
@@ -137,6 +141,42 @@ void deQueue(){
     }
 }
 
+void Menu() {
+	int pilihan;
+    string val;
+	xy(15, 26);
+	cout << "MENU";
+	xy(2, 27);
+	cout << "1.INQEUE";
+	xy(2, 28);
+	cout << "2.DEQEUE";
+	xy(2, 29);
+	cout << "3.SEARCH";
+	xy(2, 30);
+	cout << "4.EXIT";
+	xy(2, 33);
+	cout << "Pilihan Menu: ";
+	cin >> pilihan;
+
+    switch(pilihan){
+        case 1:
+            inQueue();
+        break;
+        case 2:
+            deQueue();
+        break;
+        case 3:
+            cout << "search";
+            cin >> val;
+            search(val);
+            system("pause");
+        break;
+        case 4:
+            end1 = true;
+        break;
+    }
+}
+
 void showData(){
     system("clear");
     Table();
@@ -147,6 +187,7 @@ void showData(){
     else{
         savedState(state);
         Table();
+        title();
         for(pos = 0; pos < queue.end; pos++){
             xy(4,pos + 3);
             cout << rental[pos].num;
@@ -156,8 +197,10 @@ void showData(){
             cout << rental[pos].type;
             xy(66,pos+ 3);
             cout << rental[pos].date;
-            Display();
+            xy(91,pos+3);
+            cout << "Rp. " << rental[pos].price;
         }
+        Table_Menu();
+        Menu();
     }
-    title();
 }
