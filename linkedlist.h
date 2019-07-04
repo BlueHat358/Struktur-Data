@@ -2,11 +2,12 @@
 
 #include "model.h"
 
-int n = 1, a, c = 1;
+int a, n;
+int pub_price;
 
 struct node {
    string name, title, date;
-   int price;
+   int price, key;
    struct node *next;
 };
 struct node* front = NULL;
@@ -15,16 +16,18 @@ struct node* temp;
 struct node* temp1;
 
 void Insert(string name, string title, string date, int price) {
+
    if (rear == NULL) {
+      n++;
       rear = (struct node *)malloc(sizeof(struct node));
       rear->next = NULL;
       rear->name = name;
       rear->title = title;
       rear->date = date;
       rear->price = price;
-      temp->name = name;
       front = rear;
    } else {
+      n++;
       temp=(struct node *)malloc(sizeof(struct node));
       rear->next = temp;
       temp->name = name;
@@ -57,14 +60,22 @@ void Delete() {
 
 void Display() {
    temp = front;
+   int m = 0;
    if ((front == NULL) && (rear == NULL)) {
       cout<<"Queue is empty"<<endl;
    }
-   for(int i = 0; i < n; i++){
-            xy(91,i+3);
-            cout << temp->price << "|" << temp->key << temp->index;
-            temp = temp->next;
-       }
+   while(temp != NULL){
+      xy(1,m+3);
+      cout << temp->name;
+      xy(43,m+3);
+      cout << temp->title;
+      xy(71,m+3);
+      cout << temp->date;
+      xy(95,m+3);
+      cout << "Rp. " << temp->price;
+      temp = temp->next;
+      m++;
+   }
 }
 
 void findIndex(int n) {
@@ -72,7 +83,6 @@ void findIndex(int n) {
    char b;
    bool ada;
    while(temp != NULL){
-        c++;
         temp = temp->next;
         b = temp->key;
         if(b == n){
@@ -84,7 +94,6 @@ void findIndex(int n) {
             cout << ada;
         }
     }
-    cout << c;
 }
 
 void removeElement(int c) {
@@ -95,7 +104,7 @@ void removeElement(int c) {
     }
     else {
         if(temp->next != NULL){
-            if(n == 1){
+            if(c == 1){
                 front = temp->next;
                 free(temp);
                 return;

@@ -1,6 +1,7 @@
 #include <ctime>
 #include <string>
 #include <locale>
+#include <iostream>
 
 #include "linkedlist.h"
 #include "sort.h"
@@ -9,7 +10,7 @@
 
 void showData();
 
-bool end1 = false;
+bool end1 = false, end2 = false;
 
 int state = 0;
 
@@ -147,13 +148,13 @@ void Menu() {
 	xy(15, 26);
 	cout << "MENU";
 	xy(2, 27);
-	cout << "1.INQEUE";
+	cout << "1. INQEUE";
 	xy(2, 28);
-	cout << "2.DEQEUE";
+	cout << "2. DEQEUE";
 	xy(2, 29);
-	cout << "3.SEARCH";
+	cout << "3. SEARCH";
 	xy(2, 30);
-	cout << "4.EXIT";
+	cout << "4. EXIT";
 	xy(2, 33);
 	cout << "Pilihan Menu: ";
 	cin >> pilihan;
@@ -173,6 +174,59 @@ void Menu() {
         break;
         case 4:
             end1 = true;
+        break;
+    }
+}
+
+void Menu2() {
+	int pilihan, pric, num, y = n, x = 36;
+    char name[40], title[15];
+    string date, val, name_, title_;
+
+    title2();
+    Display();
+
+	xy(x+23, 26);
+	cout << "MENU";
+	xy(x, 27);
+	cout << "1. INSERT";
+	xy(x, 28);
+	cout << "2. REMOVE";
+	// xy(x, 29);
+	// cout << "3. SEARCH";
+	xy(x, 29);
+	cout << "3. EXIT";
+	xy(x, 33);
+	cout << "Pilihan Menu: ";
+	cin >> pilihan;
+
+    switch(pilihan){
+        case 1:
+            // cin.ignore();
+            xy(2, y+3);
+            cin >> name_;
+            xy(43, y+3);
+            // cin.getline(title,15);
+            cin >> title_;
+            xy(70,y+3);
+            cin >> num;
+            Date(num);
+            date = buffer;
+            pric = price(num,1);
+            Insert(name_, title_, date, pric);
+        break;
+        case 2:
+            removeElement(1);
+        break;
+        // case 3:
+        //     // cout << "search";
+        //     // cin >> val;
+        //     // search(val);
+        //     // system("pause");
+        //     Display();
+        // break;
+        case 3:
+            end2 = true;
         break;
     }
 }
