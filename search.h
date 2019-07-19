@@ -23,7 +23,7 @@ void showSearch(int index){
         xy(66,zn+ 3);
         cout << rental[index].date;
         xy(91,zn+3);
-        cout << "Rp. " << rental[index].price;
+        cout << "Rp. " << spliter1(rental[index].price);
     }
 }
 
@@ -64,7 +64,6 @@ void search(char par[40]){
 void search_linked(int c, string key){
     system("cls");
     Table2();
-    Table_Menu2();
     temp = front;
     string b;
     int m = 0, z = 1;
@@ -74,7 +73,7 @@ void search_linked(int c, string key){
       return;
     }
     else {
-        if(temp->next != NULL){
+        if(temp != NULL){
             for(int i = 0; i < c; i++){
                 b = temp->name;
                 if(key.compare(b)==0){
@@ -91,7 +90,7 @@ void search_linked(int c, string key){
                     xy(71,m+3);
                     cout << temp->date;
                     xy(95,m+3);
-                    cout << "Rp. " << temp->price;
+                    cout << "Rp. " << spliter1(temp->price);
                     m++;
                     z++;
                 }

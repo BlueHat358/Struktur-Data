@@ -5,6 +5,7 @@
 int a, n;
 void removeElement(int c);
 void denda1(struct node *tmp);
+string spliter1(int number);
 
 struct times{
    int day, month, year;
@@ -91,7 +92,7 @@ void Display() {
       xy(71,m+3);
       cout << temp->date;
       xy(95,m+3);
-      cout << "Rp. " << temp->price;
+      cout << "Rp. " << spliter1(temp->price);
       temp = temp->next;
       m++;
       z++;
@@ -179,7 +180,17 @@ void denda1(struct node *tmp){
         diff = difftime(now, temp_time) / (60*60*24);
         cout << "Terlambat : " << diff << " Hari" << endl;
         xy(45, height + 12);
-        cout << "Anda terkena denda : Rp. " << diff * 5000;
+        cout << "Anda terkena denda : Rp. " << spliter1(diff * 5000);
         getch();
     }
+}
+
+string spliter1(int number){
+    string hasil = to_string(number);
+        int split = hasil.length() - 3;
+        while(split > 0){
+            hasil.insert(split, ",");
+            split -= 3;
+        }
+        return (hasil);
 }

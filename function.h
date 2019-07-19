@@ -11,6 +11,7 @@
 void showData();
 void show();
 void denda();
+string spliter(int number);
 
 bool end1 = false, end2 = false;
 
@@ -259,7 +260,7 @@ void show(){
         xy(66,pos+ 3);
         cout << rental[pos].date;
         xy(91,pos+3);
-        cout << "Rp. " << rental[pos].price;
+        cout << "Rp. " << spliter(rental[pos].price);
         z++;
     }
 }
@@ -304,7 +305,17 @@ void denda(){
         diff = difftime(now, temp_time) / (60*60*24);
         cout << "Terlambat : " << diff << " Hari" << endl;
         xy(10, height + 12);
-        cout << "Anda terkena denda : Rp. " << diff * 15000;
+        cout << "Anda terkena denda : Rp. " << spliter(diff * 15000);
         getch();
     }
+}
+
+string spliter(int number){
+    string hasil = to_string(number);
+        int split = hasil.length() - 3;
+        while(split > 0){
+            hasil.insert(split, ",");
+            split -= 3;
+        }
+        return (hasil);
 }
