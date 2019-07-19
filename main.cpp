@@ -26,4 +26,6 @@ int main(){
     }
 
     xy(0, height + 15);
+    
+    // denda();
 }
