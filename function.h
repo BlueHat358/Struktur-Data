@@ -9,18 +9,19 @@
 #include "search.h"
 
 void showData();
+void show();
+void denda();
+string spliter(int number);
 
 bool end1 = false, end2 = false;
 
-int state = 0;
-
 bool isFull(){
-    if(queue.end == MAX){ return true;}
+    if(queue.end >= MAX){ return true;}
     else{ return false;}
 }
 
 bool isEmpty(){
-    if(queue.end == -1){ return true;}
+    if(queue.end <= -1){ return true;}
     else {return false;}
 }
 
@@ -35,19 +36,25 @@ void clear(){
     queue.end = -1;
 }
 
-int t, dex;
+int t, dex, arr[3];
 char buffer [25];
 
-void Date(int num){
+void Date(int num, int choose){
     time_t now;
     time(&now);
     now += num*60*60;
     tm *ltm = localtime(&now);
 
-    rental[dex].year = 1900+ltm->tm_year;
-    rental[dex].month = 1+ltm->tm_mon;
-    rental[dex].day = 0+ltm->tm_mday;
-    rental[dex].hour = 0+ltm->tm_hour;
+    if(choose == 1){
+        rental[dex].year = 1900+ltm->tm_year;
+        rental[dex].month = 1+ltm->tm_mon;
+        rental[dex].day = 0+ltm->tm_mday;
+        rental[dex].hour = 0+ltm->tm_hour;
+    }else{
+        arr[0] = 1900+ltm->tm_year;
+        arr[1] = 1+ltm->tm_mon;
+        arr[2] = ltm->tm_mday;
+    }
 
     strftime(buffer, 25,"%d/%m/%Y || %H:%M:%S", ltm);
 }
@@ -80,8 +87,6 @@ void inQueue(){
     dex = i;
 
     if(!isFull()){
-        xy(0, height + 3);
-        cout << i;
         int num, number;
         xy(4,queue.end + 3);
         cin >> num;
@@ -107,10 +112,9 @@ void inQueue(){
             }
             
             if(t != 0){
-                s++;
                 xy(66,queue.end + 3);
                 cin >> num;
-                Date(num);
+                Date(num,1);
                 rental[i].date = buffer;
                 rental[i].price = price(num, t);
             }
@@ -121,10 +125,6 @@ void inQueue(){
         }
         
         queue.end++;
-
-        if(s > 20){
-            s = 0;
-        }
     }
     else
         cout << "Queue is Full";
@@ -132,45 +132,48 @@ void inQueue(){
 
 void deQueue(){
     if(!isEmpty()){
-        cout << "Name : " << rental[0].name << endl;
+        denda();
         swap();
         queue.end--;
-        cout << endl << "The money was added to customer";
-    }
-    else{
-        cout << "Queue is Empty";
     }
 }
 
 void Menu() {
 	int pilihan;
-    string val;
-	xy(15, 26);
+    char val[40];
+    color(ftex, bg);
+	xy(15, height+2);
 	cout << "MENU";
-	xy(2, 27);
-	cout << "1. INQEUE";
-	xy(2, 28);
-	cout << "2. DEQEUE";
-	xy(2, 29);
-	cout << "3. SEARCH";
-	xy(2, 30);
-	cout << "4. EXIT";
-	xy(2, 33);
+	xy(2, height+4);
+	cout << "1. Insert";
+	xy(2, height+5);
+	cout << "2. Remove";
+	xy(2, height+6);
+	cout << "3. Search";
+	xy(2, height+7);
+	cout << "4. Exit";
+	xy(2, height+9);
 	cout << "Pilihan Menu: ";
 	cin >> pilihan;
 
     switch(pilihan){
         case 1:
+            system("cls");
+            Table();
+            title();
+            show();
             inQueue();
         break;
         case 2:
             deQueue();
         break;
         case 3:
-            cout << "search";
-            cin >> val;
+            cin.ignore();
+            xy(5, height+10);
+            cout << "Search : ";
+            cin.getline(val, 40);
             search(val);
-            system("pause");
+            getch();
         break;
         case 4:
             end1 = true;
@@ -181,80 +184,138 @@ void Menu() {
 void Menu2() {
 	int pilihan, pric, num, y = n, x = 36;
     char name[40], title[15];
-    string date, val, name_, title_;
+    string date, val;
+    end2 = false;
 
     title2();
     Display();
 
-	xy(x+23, 26);
+    color(ftex,bg);
+	xy(x+23, height2+up+2);
 	cout << "MENU";
-	xy(x, 27);
-	cout << "1. INSERT";
-	xy(x, 28);
-	cout << "2. REMOVE";
-	// xy(x, 29);
-	// cout << "3. SEARCH";
-	xy(x, 29);
-	cout << "3. EXIT";
-	xy(x, 33);
+	xy(x, height2+up+4);
+	cout << "1. Insert";
+	xy(x, height2+up+5);
+	cout << "2. Remove";
+	xy(x, height2+up+6);
+	cout << "3. Remove At";
+    xy(x, height2+up+7);
+	cout << "4. Search";
+	xy(x, height2+up+8);
+	cout << "5. Exit";
+	xy(x, height2+up+10);
 	cout << "Pilihan Menu: ";
 	cin >> pilihan;
 
     switch(pilihan){
         case 1:
-            // cin.ignore();
-            xy(2, y+3);
-            cin >> name_;
+            cin.ignore();
+            xy(1, y+3);
+            cin.getline(name, 40);
             xy(43, y+3);
-            // cin.getline(title,15);
-            cin >> title_;
+            cin.getline(title,15);
             xy(70,y+3);
             cin >> num;
-            Date(num);
+            Date(num,2);
             date = buffer;
             pric = price(num,1);
-            Insert(name_, title_, date, pric);
+            Insert(name, title, date, pric, arr);
         break;
         case 2:
             removeElement(1);
         break;
-        // case 3:
-        //     // cout << "search";
-        //     // cin >> val;
-        //     // search(val);
-        //     // system("pause");
-        //     Display();
-        // break;
         case 3:
+            cin.ignore();
+            cout << "Search : ";
+            getline(cin, val);
+            findIndex(val);
+        break;
+        case 4:
+            cin.ignore();
+            cout << "Search : ";
+            getline(cin, val);
+            search_linked(n, val);
+            getch();
+        break;
+        case 5:
             end2 = true;
         break;
     }
 }
 
+void show(){
+    int z = 1;
+    for(pos = 0; pos < queue.end; pos++){
+        if(z%2 == 0)
+            fg = f1;
+        else
+            fg = f2;
+        color(fg,bg);
+        xy(4,pos + 3);
+        cout << rental[pos].num;
+        xy(11,pos+ 3);
+        cout << rental[pos].name;
+        xy(54,pos + 3);
+        cout << rental[pos].type;
+        xy(66,pos+ 3);
+        cout << rental[pos].date;
+        xy(91,pos+3);
+        cout << "Rp. " << spliter(rental[pos].price);
+        z++;
+    }
+}
+
 void showData(){
     system("clear");
-    Table();
-    sortDefault();
     if(isEmpty()){
-        cout << "Queue is Empty";
-    }
-    else{
-        savedState(state);
         Table();
         title();
-        for(pos = 0; pos < queue.end; pos++){
-            xy(4,pos + 3);
-            cout << rental[pos].num;
-            xy(11,pos+ 3);
-            cout << rental[pos].name;
-            xy(54,pos + 3);
-            cout << rental[pos].type;
-            xy(66,pos+ 3);
-            cout << rental[pos].date;
-            xy(91,pos+3);
-            cout << "Rp. " << rental[pos].price;
-        }
+        Table_Menu();
+        xy(10, height+12);
+        cout << "Queue is Empty";
+        Menu();
+    }
+    else{
+        Table();
+        sortDefault();
+        title();
+        show();
         Table_Menu();
         Menu();
     }
+}
+
+void denda(){
+    int year, month, day, hour;
+    time_t now;
+    time(&now);
+    tm *ltm = localtime(&now);
+
+    struct tm temp = {0,0,0,rental[0].day, rental[0].month-1, rental[0].year-1900};
+    time_t temp_time = mktime(&temp);
+    int diff;
+
+    year = 1900+ltm->tm_year;
+    month = 1+ltm->tm_mon;
+    day = 0+ltm->tm_mday;
+    hour = 0+ltm->tm_hour;
+
+    if((year > rental[0].year) || (month > rental[0].month) || (day > rental[0].day)){
+        xy(10, height + 11);
+        diff = difftime(now, temp_time) / (60*60*24);
+        cout << "Terlambat : " << diff << " Hari" << endl;
+        xy(10, height + 12);
+        cout << "Anda terkena denda : Rp. " << spliter(diff * 15000);
+        getch();
+    }
+}
+
+string spliter(int number){
+    string hasil = to_string(number);
+        int split = hasil.length() - 3;
+        while(split > 0){
+            hasil.insert(split, ",");
+            split -= 3;
+        }
+        return (hasil);
 }

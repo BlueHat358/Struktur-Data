@@ -1,6 +1,6 @@
 
 
-int height = 25, width = 105;
+int height = 5+MAX, width = 105;
 int pil_tmp;
 
 void Table_Menu();
@@ -9,6 +9,7 @@ void Table_Menu2();
 void Table(){
     system("cls");
 
+    color(ftab,bg);
     for(int i = 1; i < height-1; i++){
         xy(0,i);
             cout << char(179);
@@ -62,6 +63,7 @@ void Table(){
 }
 
 void title(){
+    color(ftit,bg);
     xy(2,1);
         cout << "Number";
     xy(30,1);
@@ -75,13 +77,14 @@ void title(){
 }
 
 void Table_Menu() {
-	for (int i = height; i < 35; i++) {
+    color(ftab,bg);
+	for (int i = height; i < height + 14; i++) {
 		xy(0, i);
 		cout << char(179);
 		xy(109, i);
 		cout << char(179);
 	}
-	xy(0, 25);
+	xy(0, height);
 	for (int i = 0; i < 109; i++) {
 		if (i == 0) 
 			cout << char(218);
@@ -90,7 +93,7 @@ void Table_Menu() {
 		else
 			cout << char(196);
 	}
-	xy(0, 35);
+	xy(0, height+13);
 	for (int i = 0; i < 109; i++) {
 		if (i == 0)
 			cout << char(192);
@@ -102,6 +105,7 @@ void Table_Menu() {
 }
 
 void main_menu(){
+    color(ftex,bg);
     int x = 25, y = 6;
     xy(x+15,y+2); cout << "Rental Kaset";
     xy(x+20,y+3); cout << "dan";
@@ -114,6 +118,7 @@ void main_menu(){
 }
 
 void table_main(){
+    color(ftab,bg);
     int x = 20, y = 5;
     system("cls");
 
@@ -149,10 +154,15 @@ void table_main(){
     main_menu();
 }
 
+int height2 = 13;
 void Table2(){
     system("cls");
+    if(up < 0){
+        up = 0;
+    }
 
-    for(int i = 1; i < height-1; i++){
+    color(ftab,bg);
+    for(int i = 1; i < height2-1+up; i++){
         xy(0,i);
             cout << char(179);
         xy(42,i);
@@ -189,7 +199,7 @@ void Table2(){
             cout << char(196);
     }
 
-    xy(0,height-1);
+    xy(0,height2-1+up);
     for(int i = 0; i < width+12; i++){
         if(i == 0)
             cout << char(192);
@@ -204,6 +214,7 @@ void Table2(){
 }
 
 void title2(){
+    color(ftit,bg);
     xy(19,1);
         cout << "Name";
     xy(54,1);
@@ -216,13 +227,13 @@ void title2(){
 
 void Table_Menu2() {
     int x = 33;
-	for (int i = height; i < 35; i++) {
+	for (int i = height2+up; i < height2+up+15; i++) {
 		xy(x, i);
 		cout << char(179);
 		xy(x+50, i);
 		cout << char(179);
 	}
-	xy(x, 25);
+	xy(x, 13+up);
 	for (int i = 0; i < 50; i++) {
 		if (i == 0) 
 			cout << char(218);
@@ -231,7 +242,7 @@ void Table_Menu2() {
 		else
 			cout << char(196);
 	}
-	xy(x, 35);
+	xy(x, 28+up);
 	for (int i = 0; i < 50; i++) {
 		if (i == 0)
 			cout << char(192);
